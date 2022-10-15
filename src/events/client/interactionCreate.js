@@ -9,7 +9,7 @@ module.exports = {
       try {
         await command.execute(interaction, client);
       } catch (error) {
-        console.log(interaction);
+        console.log(error);
         await interaction.reply({ content: "Error 500: Something went wrong", ephemeral: true });
       }
     }
