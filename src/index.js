@@ -3,7 +3,7 @@ require("dotenv").config();
 const { Client, Collection, GatewayIntentBits } = require("discord.js");
 const fs = require("fs");
 
-const client = new Client({ intents: GatewayIntentBits.Guilds });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMembers] });
 client.commands = new Collection();
 client.color = 0xeb4034;
 client.commandArray = [];
@@ -16,4 +16,4 @@ for (const folder of functionFolders) {
 
 client.handleEvents();
 client.handleCommands();
-client.login(process.env.TOKEN);
+client.login(process.env.DEV_TOKEN);
