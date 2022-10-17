@@ -16,4 +16,4 @@ for (const folder of functionFolders) {
 
 client.handleEvents();
 client.handleCommands();
-client.login(process.env.DEV_TOKEN);
+client.login(process.env.TOKEN);
