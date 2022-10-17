@@ -15,11 +15,11 @@ module.exports = {
       .setTimestamp()
       .setFooter({ text: "made with discord.js", iconURL: javascriptImage });
 
-    await client.users
-      .fetch(member.user.id, false)
-      .then((user) => {
-        user.send({ embeds: [welcomEmbed] });
-      })
-      .catch(console.log("Failed to send"));
+    await client.users.fetch(member.user.id, false).then((user) => {
+      user.send({ embeds: [welcomEmbed] }).catch((error) => console.log(error));
+    });
+
+    if (member.user.bot) return await member.roles.add(member.guild.roles.cache.find((role) => role.id === "1029371267305963540")).catch((err) => console.log(err));
+    return await member.roles.add(member.guild.roles.cache.find((role) => role.id === "1029371052880564234")).catch((err) => console.log(err));
   },
 };
