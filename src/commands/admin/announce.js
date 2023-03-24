@@ -12,7 +12,7 @@ module.exports = {
     const channel = interaction.options.getChannel("channel");
 
     try {
-      await channel.send(content.replace(/ {4}/g, "\n"));
+      await channel.send(content.replace(/\\n/g, "\n"));
       await interaction.reply(`Announcement sent to ${channel}`);
     } catch (error) {
       console.error(error);
