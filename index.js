@@ -18,4 +18,4 @@ for (const folder of functionFolders) {
 
 client.handleEvents();
 client.handleCommands();
-client.login("MTAyOTM0MjE2MzA4OTI0MDEwNQ.GhOQS7.0AaVvqO1P3BnxthJ51CBKnQT7AVAQiNjTp-tC0");
+client.login(process.env.TOKEN);
