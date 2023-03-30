@@ -1,5 +1,5 @@
 require("dotenv").config();
-
+const http = require("http");
 const { Client, Collection, GatewayIntentBits } = require("discord.js");
 const fs = require("fs");
 
@@ -19,3 +19,13 @@ for (const folder of functionFolders) {
 client.handleEvents();
 client.handleCommands();
 client.login(process.env.TOKEN);
+
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader("Content-Type", "text/plain");
+  res.end("Hello World!");
+});
+
+server.listen(3000, () => {
+  console.log("Server running on port 3000");
+});
