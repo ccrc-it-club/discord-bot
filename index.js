@@ -25,7 +25,7 @@ for (const folder of functionFolders) {
 
 client.handleEvents();
 client.handleCommands();
-client.login("MTAyOTM0MjE2MzA4OTI0MDEwNQ.GGwFaR.zlaGwf-CtqqkTX40GG2b4p0nhOWp7Whr8e7TeI");
+client.login(process.env.TOKEN);
 
 const server = http.createServer((req, res) => {
   res.statusCode = 200;
