@@ -25,27 +25,12 @@ for (const folder of functionFolders) {
 
 client.handleEvents();
 client.handleCommands();
-client.login(process.env.TOKEN);
+client.login("MTAyOTM0MjE2MzA4OTI0MDEwNQ.GGwFaR.zlaGwf-CtqqkTX40GG2b4p0nhOWp7Whr8e7TeI");
 
 const server = http.createServer((req, res) => {
-  if (req.method === "GET" && req.url === "/webhook") {
-    const mode = req.headers["x-hub-signature"];
-    const token = req.headers["x-hub-signature"];
-
-    if (mode && token === process.env.VERIFY_TOKEN) {
-      const challenge = req.headers["x-hub-challenge"];
-      res.statusCode = 200;
-      res.setHeader("Content-Type", "text/plain");
-      res.end(challenge);
-    } else {
-      res.statusCode = 403;
-      res.end();
-    }
-  } else {
-    res.statusCode = 200;
-    res.setHeader("Content-Type", "text/plain");
-    res.end("Hello World!");
-  }
+  res.statusCode = 200;
+  res.setHeader("Content-Type", "text/plain");
+  res.end("Hello World!");
 });
 
 server.listen(3000, () => {
