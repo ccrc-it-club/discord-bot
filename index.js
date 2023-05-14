@@ -23,6 +23,9 @@ for (const folder of functionFolders) {
   for (const file of functionFiles) require(`./src/functions/${folder}/${file}`)(client);
 }
 
+const facebookFunction = require("./src/functions/facebook/facebook");
+facebookFunction(client);
+
 client.handleEvents();
 client.handleCommands();
 client.login(process.env.TOKEN);

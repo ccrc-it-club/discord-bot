@@ -9,7 +9,7 @@ module.exports = {
         .get("https://official-joke-api.appspot.com/random_joke")
         .then((response) => {
           const data = response.data;
-          message.channel.send(`${data.setup}, ${data.punchline}`);
+          message.channel.send(`${data.setup}\n\n${data.punchline}`);
         })
         .catch((error) => {
           console.log("Error:", error);
