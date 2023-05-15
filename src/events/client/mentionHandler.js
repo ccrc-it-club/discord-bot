@@ -30,13 +30,15 @@ async function handleMention(message) {
     return message.channel.send(botResponses[Math.floor(Math.random() * botResponses.length)]);
 
   // Sends request to OpenAI
-  const completion = await openai.createChatCompletion({
+  const completionPromise = openai.createChatCompletion({
     model: "gpt-3.5-turbo",
     messages: [{ role: "user", content: content }],
   });
 
   await message.channel.sendTyping();
-  await message.channel.send(completion.data.choices[0].message);
-}
 
+  const completion = await completionPromise;
+
+  message.reply(completion.data.choices[0].message);
+}
 module.exports = { handleMention };
