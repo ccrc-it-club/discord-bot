@@ -20,7 +20,7 @@ async function getFacebookPosts(client) {
     const response = await axios.get(`https://graph.facebook.com/v15.0/${pageId}/posts`, {
       params: {
         access_token: accessToken,
-        fields: "id, message, created_time, attachments{url,media}",
+        fields: "id, message, created_time",
         limit: 1,
       },
     });
@@ -30,18 +30,16 @@ async function getFacebookPosts(client) {
 
     // Check if the latest post ID has changed or is not cached
     if (newLatestPost.id !== cachedPostId) {
-      const channel = client.channels.cache.get("1029298475675951176");
-
       const aboutEmbed = new EmbedBuilder()
         .setTitle("CCRC IT CLUB")
-        .setURL(newLatestPost.attachments.data[0].url)
-        .setImage(newLatestPost.attachments.data[0].media.image.src)
-        .setDescription(newLatestPost.message)
+        .setURL(`https://facebook.com/${posts[0].id}`)
+        .setImage(posts[0].attachments.data[0].media.image.src)
+        .setDescription(posts[0].message)
         .setColor(0x3b5998)
         .setTimestamp();
 
       // Send the embed to the channel
-      await channel.send({ embeds: [aboutEmbed] });
+      client.channels.cache.get("1029298475675951176").send({ embeds: [aboutEmbed] });
 
       // Update the latest post ID in the cache
       await redisClient.set("latestPostId", newLatestPost.id);
