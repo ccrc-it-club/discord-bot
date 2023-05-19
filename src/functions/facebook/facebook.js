@@ -20,7 +20,7 @@ async function getFacebookPosts(client) {
     const response = await axios.get(`https://graph.facebook.com/v15.0/${pageId}/posts`, {
       params: {
         access_token: accessToken,
-        fields: "id, message, created_time",
+        fields: "id, message, created_time, attachments",
         limit: 1,
       },
     });
@@ -30,16 +30,25 @@ async function getFacebookPosts(client) {
 
     // Check if the latest post ID has changed or is not cached
     if (newLatestPost.id !== cachedPostId) {
-      const aboutEmbed = new EmbedBuilder()
-        .setTitle("CCRC IT CLUB")
-        .setURL(`https://facebook.com/${posts[0].id}`)
-        .setImage(posts[0].attachments.data[0].media.image.src)
-        .setDescription(posts[0].message)
-        .setColor(0x3b5998)
-        .setTimestamp();
-
-      // Send the embed to the channel
-      client.channels.cache.get("1029298475675951176").send({ embeds: [aboutEmbed] });
+      if (resnewLatestPost.attachments != undefined) {
+        const aboutEmbed = new EmbedBuilder()
+          .setTitle("CCRC IT CLUB")
+          .setURL(`https://facebook.com/${newLatestPost.id}`)
+          .setImage(newLatestPost.attachments.data[0].media.image.src)
+          .setDescription(newLatestPost[0].message)
+          .setColor(0x3b5998)
+          .setTimestamp();
+        console.log(client.channels.cache.get("1029298475675951176"));
+        await client.channels.cache.get("1029298475675951176").send({ embeds: [aboutEmbed] });
+      } else {
+        const aboutEmbed = new EmbedBuilder()
+          .setTitle("CCRC IT CLUB")
+          .setURL(`https://facebook.com/${posts[0].id}`)
+          .setDescription(posts[0].message)
+          .setColor(0x3b5998)
+          .setTimestamp();
+        await client.channels.cache.get("1029298475675951176").send({ embeds: [aboutEmbed] });
+      }
 
       // Update the latest post ID in the cache
       await redisClient.set("latestPostId", newLatestPost.id);
