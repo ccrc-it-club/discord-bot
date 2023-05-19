@@ -31,7 +31,7 @@ async function getFacebookPosts(client) {
 
     // Check if the latest post ID has changed or is not cached
     if (newLatestPost.id !== cachedPostId) {
-      if (resnewLatestPost.attachments != undefined) {
+      if (newLatestPost.attachments != undefined) {
         const aboutEmbed = new EmbedBuilder()
           .setTitle("CCRC IT CLUB")
           .setURL(`https://facebook.com/${newLatestPost.id}`)
