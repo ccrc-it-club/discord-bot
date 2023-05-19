@@ -6,6 +6,7 @@ const { EmbedBuilder } = require("discord.js");
 // Define the Facebook page ID and access token
 const pageId = process.env.PAGE_ID;
 const accessToken = process.env.ACCESS_TOKEN;
+const channelId = process.env.CHANNEL_ID;
 
 // Create a Redis client instance
 const redisClient = new Redis(process.env.REDIS_URL);
@@ -38,8 +39,8 @@ async function getFacebookPosts(client) {
           .setDescription(newLatestPost[0].message)
           .setColor(0x3b5998)
           .setTimestamp();
-        console.log(client.channels.cache.get("1029298475675951176"));
-        await client.channels.cache.get("1029298475675951176").send({ embeds: [aboutEmbed] });
+        console.log(client.channels.cache.get(channelId));
+        await client.channels.cache.get(channelId).send({ embeds: [aboutEmbed] });
       } else {
         const aboutEmbed = new EmbedBuilder()
           .setTitle("CCRC IT CLUB")
@@ -47,7 +48,7 @@ async function getFacebookPosts(client) {
           .setDescription(posts[0].message)
           .setColor(0x3b5998)
           .setTimestamp();
-        await client.channels.cache.get("1029298475675951176").send({ embeds: [aboutEmbed] });
+        await client.channels.cache.get(channelId).send({ embeds: [aboutEmbed] });
       }
 
       // Update the latest post ID in the cache
