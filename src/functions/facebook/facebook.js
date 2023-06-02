@@ -36,10 +36,11 @@ async function getFacebookPosts(client) {
           .setTitle("CCRC IT CLUB")
           .setURL(`https://facebook.com/${newLatestPost.id}`)
           .setImage(newLatestPost.attachments.data[0].media.image.src)
-          .setDescription(newLatestPost.message)
+          .setDescription(newLatestPost[0].message)
           .setColor(0x3b5998)
           .setTimestamp();
-        await client.channels.cache.get(channelId.toString()).send({ embeds: [aboutEmbed] });
+        console.log(client.channels.cache.get(channelId));
+        await client.channels.cache.get(channelId).send({ embeds: [aboutEmbed] });
       } else {
         const aboutEmbed = new EmbedBuilder()
           .setTitle("CCRC IT CLUB")
