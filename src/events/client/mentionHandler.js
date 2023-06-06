@@ -43,11 +43,9 @@ async function handleMention(message) {
     message.reply(completion.data.choices[0].text);
   } catch (error) {
     if (error.response) {
-      console.log(error.response.status);
-      message.reply(error.response.data.error.message);
+      message.reply("<:Crying_Kitten:1030542301497409667> Something went wrong!");
     } else {
-      message.reply("Oops something went wrong");
-      console.log(error.message);
+      message.reply("<:Crying_Kitten:1030542301497409667> Something went wrong!");
     }
   }
 }
