@@ -53,8 +53,6 @@ async function getFacebookPosts(client) {
 
       // Update the latest post ID in the cache
       await redisClient.set("latestPostId", newLatestPost.id);
-    } else {
-      console.log("✅ No new post found.");
     }
   } catch (error) {
     console.error("❌ Error retrieving Facebook posts:", error);
@@ -72,8 +70,6 @@ module.exports = (client) => {
 
     // Set interval to check for new posts every 1 minute
     setInterval(async () => {
-      console.log("\n⏳ After 1 minute:");
-
       // Check for new posts
       await getFacebookPosts(client);
     }, 60000); // 1 minute interval

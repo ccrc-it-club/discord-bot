@@ -30,15 +30,25 @@ async function handleMention(message) {
     return message.channel.send(botResponses[Math.floor(Math.random() * botResponses.length)]);
 
   // Sends request to OpenAI
-  const completionPromise = openai.createChatCompletion({
-    model: "gpt-3.5-turbo",
-    messages: [{ role: "user", content: content }],
-  });
+  try {
+    const completionPromise = openai.createChatCompletion({
+      model: "gpt-3.5-turbo",
+      messages: [{ role: "user", content: content }],
+    });
 
-  await message.channel.sendTyping();
+    await message.channel.sendTyping();
 
-  const completion = await completionPromise;
+    const completion = await completionPromise;
 
-  message.reply(completion.data.choices[0].message);
+    message.reply(completion.data.choices[0].text);
+  } catch (error) {
+    if (error.response) {
+      console.log(error.response.status);
+      message.reply(error.response.data.error.message);
+    } else {
+      message.reply("Oops something went wrong");
+      console.log(error.message);
+    }
+  }
 }
 module.exports = { handleMention };
